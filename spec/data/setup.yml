@@ -1,0 +1,66 @@
+filenames:
+  - Campus-11.eps
+  - Campus-11.jpg
+  - Campus-3.eps
+  - Campus-3.jpg
+  - Campus-3a.eps
+  - Campus-3a.jpg
+  - Campus-6.eps
+  - Campus-6.jpg
+  - Campus-7.eps
+  - Campus-7.jpg
+  - Client-1.eps
+  - Client-1.jpg
+  - Client-1a.eps
+  - Client-1a.jpg
+  - Client-4.eps
+  - Client-4.jpg
+  - Employer-10.eps
+  - Employer-10.jpg
+  - Employer-2.eps
+  - Employer-2.jpg
+  - Employer-2a.eps
+  - Employer-2a.jpg
+  - Employer-5.eps
+  - Employer-5.jpg
+  
+owners:
+  - frank
+  - sally
+  - bob
+  
+clients:
+  - external_id: 1
+    name: Client-1
+    web_logo_filename: Client-1.jpg
+    print_logo_filename: Client-1.eps
+    owner: frank
+    employers:
+      - external_id: 2
+        name: Employer-2
+        web_logo_filename: Employer-2.jpg
+        print_logo_filename: Employer-2.eps
+        campuses:
+          - external_id: 3
+            name: Campus-3
+            web_logo_filename: Campus-3.jpg
+            print_logo_filename: Campus-3.eps
+  - external_id: 4
+    name: Client-4
+    web_logo_filename: Client-4.jpg
+    print_logo_filename: Client-4.eps
+    owner: frank
+    employers:
+      - external_id: 5
+        name: Employer-5
+        web_logo_filename: Employer-5.jpg
+        print_logo_filename: Employer-5.eps
+        campuses:
+          - external_id: 6
+            name: Campus-6
+            web_logo_filename: Campus-6.jpg
+            print_logo_filename: Campus-6.eps
+          - external_id: 7
+            name: Campus-7
+            web_logo_filename: Campus-7.jpg
+            print_logo_filename: Campus-7.eps
