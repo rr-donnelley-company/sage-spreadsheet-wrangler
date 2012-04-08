@@ -1,6 +1,6 @@
 module Sage
   
-  class SpreadsheetImporter
+  class SpreadsheetWrangler
     
     VERSION = '0.1'
     

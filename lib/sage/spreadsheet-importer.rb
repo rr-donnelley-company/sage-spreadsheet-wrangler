@@ -1,1 +1,0 @@
-require 'spreadsheet-importer/version'
