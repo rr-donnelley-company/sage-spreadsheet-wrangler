@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    sage-spreadsheet-importer (0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (0.9.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+  sage-spreadsheet-importer!
