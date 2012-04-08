@@ -6,12 +6,17 @@ rescue LoadError
 end
 
 require 'rake/clean'
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-spec = Gem::Specification.load(FileList['*.gemspec'].first)
+# require 'spec'
+# require 'spec/rake/spectask'
+# Spec::Rake::SpecTask.new do |task|
+#   task.libs << 'lib'
+# end
+
+# spec = Gem::Specification.load(FileList['*.gemspec'].first)
 
 task :default => [:test, :install]
 
-Rake::TestTask.new do |t|
-  t.test_files = spec.test_files
-end
+desc "Run all RSpec tests"
+RSpec::Core::RakeTask.new(:spec)
