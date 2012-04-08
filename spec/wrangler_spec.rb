@@ -1,8 +1,26 @@
 require 'spec_helper'
 
-import Sage
+include Sage
 
-describe SpreadsheetWrangler do
+class MyWrangler < SpreadsheetWrangler
+  
+  def initialize
+    super(
+      :client_id => :integer,
+      :client_name => :string,
+      :employer_id => :integer,
+      :employer_name => :string,
+      :campus_id => :ineger,
+      :campus_name => :string,
+      :print_logo_filename => :string,
+      :web_logo_filename => :string,
+      :owner => :string,
+    )
+  end
+  
+end
+
+describe MyWrangler do
   
   def data_file(name)
     File.dirname(__FILE__) + '/data/' + name + '.csv'
@@ -18,10 +36,10 @@ describe SpreadsheetWrangler do
   describe :parsing do
     
     it 'parses CSV files' do
-      importer = SpreadsheetWrangler.new
-      importer.import(data_file('simple'))
-      importer.errors.should == []
-      importer.records.map { |r| r.to_hash }.should == [
+      wrangler = MyWrangler.new
+      wrangler.import(data_file('simple'))
+      wrangler.errors.should == []
+      wrangler.records.map { |r| r.to_hash }.should == [
         {
           :client_id => 1,
           :client_name => 'Client 1', 
@@ -70,15 +88,15 @@ describe SpreadsheetWrangler do
     end
     
     it 'parses CSV files with either Windows or POSIX line endings' do
-      importer_crlf = SpreadsheetWrangler.new
-      importer_crlf.import(data_file('line-endings-crlf'))
-      importer_crlf.errors.should == []
+      wrangler_crlf = MyWrangler.new
+      wrangler_crlf.import(data_file('line-endings-crlf'))
+      wrangler_crlf.errors.should == []
       
-      importer_posix = DataImporter.new
-      importer_posix.import(data_file('line-endings-posix'))
-      importer_posix.errors.should == []
+      wrangler_posix = MyWrangler.new
+      wrangler_posix.import(data_file('line-endings-posix'))
+      wrangler_posix.errors.should == []
       
-      importer_crlf.records.should == importer_posix.records
+      wrangler_crlf.records.should == wrangler_posix.records
     end
     
   end
@@ -86,18 +104,18 @@ describe SpreadsheetWrangler do
   describe :validation do
     
     it 'validates empty file' do
-      importer = SpreadsheetWrangler.new
-      importer.import(data_file('empty'))
-      importer.errors.should == [
-        DataImporter::ValidationError::NoRecords.new
+      wrangler = MyWrangler.new
+      wrangler.import(data_file('empty'))
+      wrangler.errors.should == [
+        MyWrangler::ValidationError.new(:no_records)
       ]
     end
     
     it 'validates file with no data' do
-      importer = SpreadsheetWrangler.new
-      importer.import(data_file('headers-only'))
-      importer.errors.should == [
-        DataImporter::ValidationError::NoRecords.new
+      wrangler = MyWrangler.new
+      wrangler.import(data_file('headers-only'))
+      wrangler.errors.should == [
+        MyWrangler::ValidationError.new(:no_records)
       ]
     end
 
@@ -107,10 +125,10 @@ describe SpreadsheetWrangler do
     
     it 'correlates' do
       pending "Should correlate"
-      # importer = SpreadsheetWrangler.new(:clients => @clients, :filenames => @filenames, :owners => @owners)
-      # importer.import(data_file('correlate'))
-      # importer.errors.should == []
-      # importer.correlation.should == ...
+      # wrangler = MyWrangler.new(:clients => @clients, :filenames => @filenames, :owners => @owners)
+      # wrangler.import(data_file('correlate'))
+      # wrangler.errors.should == []
+      # wrangler.correlation.should == ...
     end
     
   end
