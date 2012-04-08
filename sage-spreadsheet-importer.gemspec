@@ -1,17 +1,19 @@
 # -*- encoding: utf-8 -*-
 
-require 'sage-spreadsheet-importer/version'
+$LOAD_PATH << 'lib'
+
+require 'sage/spreadsheet-importer/version'
 
 Gem::Specification.new do |s|
   s.name          = 'sage-spreadsheet-importer'
   s.version       = Sage::SpreadsheetImporter::VERSION
   s.author        = 'John Labovitz'
   s.email         = 'johnl@johnlabovitz.com'
-  s.summary       = 'FIXME.'
+  s.summary       = 'Imports spreadsheets, and provides a validation and correlation infrastructure.'
   s.description   = %q{
-    FIXME
+    Sage::SpreadsheetImporter imports spreadsheets, and provides a validation and correlation infrastructure.
   }
-  s.homepage      = 'http://github.com/FIXME'
+  # s.homepage      = 'http://github.com/FIXME'
   
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
