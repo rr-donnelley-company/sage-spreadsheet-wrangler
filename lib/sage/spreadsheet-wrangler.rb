@@ -50,9 +50,7 @@ module Sage
   
     def validate
       @errors = []
-      @@validations.each do |name, validation| 
-        instance_exec(&validation)
-      end
+      methods.grep(/^validate_/).each { |m| method(m).call }
       @errors.each { |e| e.file = @file }
       valid?
     end
@@ -64,8 +62,9 @@ module Sage
     # Helper to make little validation DSL.
     
     def self.validate(name, &block)
-      @@validations ||= {}
-      @@validations[name] = block
+      define_method("validate_#{name}") do
+        instance_exec(&block)
+      end
     end
     
     # Helper to make little validation DSL.
