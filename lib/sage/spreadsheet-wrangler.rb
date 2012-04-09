@@ -30,10 +30,9 @@ module Sage
         hash = row.to_hash
         # remove unknown fields
         hash.delete_if { |key, value| key.nil? }
-        # skip empty rows
-        next if hash.values.compact.empty?
         record = @record_class.new(i + 2, hash)
-        @records << record
+        # skip empty rows
+        @records << record unless record.empty?
       end
       validate
       correlate if respond_to?(:correlate) && valid?

@@ -97,6 +97,10 @@ module Sage
       def hash
         @data.hash
       end
+      
+      def empty?
+        @data.values.compact.empty?
+      end
     
     end
 
