@@ -41,28 +41,28 @@ describe MyWrangler do
           :client_name => 'Client 1', 
           :employer_id => 10, 
           :employer_name => 'Employer 10',
-          :owner => nil,
+          :owner => 'Bob',
         },
         {
           :client_id => 2, 
           :client_name => 'Client 2', 
           :employer_id => 20, 
           :employer_name => 'Employer 20',
-          :owner => nil,
+          :owner => 'Sue',
         },
         {
           :client_id => 3, 
           :client_name => 'Client 3', 
           :employer_id => 30, 
           :employer_name => nil,
-          :owner => nil,
+          :owner => 'Frank',
         },
         {
           :client_id => 4, 
           :client_name => 'Client 4', 
           :employer_id => nil, 
           :employer_name => nil,
-          :owner => nil,
+          :owner => 'Jane',
         },
       ]
     end
