@@ -1,6 +1,6 @@
-client_id,  client_name,  employer_id,  employer_name,  campus_id,  campus_name,  print_logo_filename,  web_logo_filename,  owner
-1,          Client-1,     2,            Employer-2,     3,          Campus-3
-1,          Client-1,     2,            Employer-2,     3,          Campus-3
-
-4,          Client-4,     5,            Employer-5,     6,          Campus-6
-4,          Client-4,     5,            Employer-5,     7,          Campus-7
+client_id,  client_name,  employer_id,  employer_name
+1,          Client-1,     2,            Employer-2
+1,          Client-1,     2,            Employer-2
+                                                     
+4,          Client-4,     5,            Employer-5
+4,          Client-4,     6,            Employer-6
