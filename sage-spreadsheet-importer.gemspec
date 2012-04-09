@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description   = %q{
     Sage::SpreadsheetWrangler imports spreadsheets, and provides a validation and correlation infrastructure.
   }
-  # s.homepage      = 'http://github.com/FIXME'
+  s.homepage      = 'https://github.com/hathersagegroup/sage-spreadsheet-wrangler'
   
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
