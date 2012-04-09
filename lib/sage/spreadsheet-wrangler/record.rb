@@ -17,7 +17,14 @@ module Sage
             @@fields.keys.map { |n| [n.to_s.delete('_'), n] }
           ]
           
-          @@fields.each do |name, type|
+          @@fields.each do |name, spec|
+            
+            if spec.kind_of?(Symbol)
+              type = spec
+            else
+              type = spec[:type]
+              # match = spec[:match]
+            end
             
             define_method(name) do
               raise "Unknown field: #{name.inspect}" unless @@fields[name]

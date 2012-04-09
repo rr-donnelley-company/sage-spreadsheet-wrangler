@@ -10,7 +10,7 @@ class MyWrangler < SpreadsheetWrangler
       :client_name => :string,
       :employer_id => :integer,
       :employer_name => :string,
-      :owner => :string,
+      :owner => { :type => :string, :match => ['owner', /user/] },
     )
   end
   
