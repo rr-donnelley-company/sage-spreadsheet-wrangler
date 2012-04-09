@@ -33,7 +33,13 @@ module Sage
               else
                 case type
                 when :integer
-                  value.to_i
+                  case value
+                  when /^\d+$/
+                    value.to_i
+                  else
+                    # raise "Invalid integer value: #{value.inspect}"
+                    value
+                  end
                 when :bool
                   case value.downcase
                   when 'true', 'yes', '1'
@@ -41,12 +47,13 @@ module Sage
                   when 'false', 'no', '0'
                     false
                   else
-                    raise "Invalid boolean value: #{value.inspect}"
+                    # raise "Invalid boolean value: #{value.inspect}"
+                    value
                   end
-                when :string
+                when nil, :string
                   value
                 else
-                  value
+                  raise "Unknown type: #{type.inspect} for field #{name.inspect}"
                 end
               end
               @data[name] = value
@@ -85,6 +92,10 @@ module Sage
       
       def ==(other)
         self.to_hash == other.to_hash
+      end
+      
+      def hash
+        @data.hash
       end
     
     end

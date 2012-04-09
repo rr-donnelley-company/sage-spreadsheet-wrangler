@@ -4,20 +4,6 @@ require 'sage/spreadsheet-wrangler/validation_error'
 
 require 'csv'
 
-# convenience method to convert Array to Hash, based on provided key
-
-# class Array
-# 
-#   def to_hash(key)
-#     Hash[
-#       map { |e|
-#         [e[key], e]
-#       }
-#     ]
-#   end
-# 
-# end
-
 module Sage
   
   class SpreadsheetWrangler
@@ -30,6 +16,7 @@ module Sage
     
     def initialize(fields)
       @record_class = Record.create_class(fields)
+      @correlation = Hash.new([])
     end
     
     def import(file)
@@ -41,15 +28,15 @@ module Sage
       @records = []
       csv.each_with_index do |row, i|
         hash = row.to_hash
+        # remove unknown fields
         hash.delete_if { |key, value| key.nil? }
         # skip empty rows
-        unless hash.values.compact.empty?
-          record = @record_class.new(i + 2, hash)
-          @records << record
-        end
+        next if hash.values.compact.empty?
+        record = @record_class.new(i + 2, hash)
+        @records << record
       end
       validate
-      correlate if valid?
+      correlate if respond_to?(:correlate) && valid?
     end
   
     # Whether or not imported records are valid (eg, no errors).
@@ -64,9 +51,15 @@ module Sage
   
     def validate
       @errors = []
-      @@validations.each { |name, validation| instance_exec(&validation) }
+      @@validations.each do |name, validation| 
+        instance_exec(&validation)
+      end
       @errors.each { |e| e.file = @file }
-      @errors.empty?
+      valid?
+    end
+    
+    def correlate
+      @correlation
     end
     
     # Helper to make little validation DSL.
@@ -78,14 +71,9 @@ module Sage
     
     # Helper to make little validation DSL.
     
-    def invalid(*args)
-      @errors << SpreadsheetWrangler::ValidationError.new(*args)
-    end
-    
-    def correlate
-      @correlation = Hash.new([])
-      #FIXME
-      @correlation
+    def invalidate(*args)
+      error = SpreadsheetWrangler::ValidationError.new(*args)
+      @errors << error
     end
     
   end

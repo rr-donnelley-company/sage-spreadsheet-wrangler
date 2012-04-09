@@ -10,7 +10,7 @@ class MyWrangler < SpreadsheetWrangler
       :client_name => :string,
       :employer_id => :integer,
       :employer_name => :string,
-      :campus_id => :ineger,
+      :campus_id => :integer,
       :campus_name => :string,
       :print_logo_filename => :string,
       :web_logo_filename => :string,
@@ -119,18 +119,14 @@ describe MyWrangler do
       ]
     end
 
+    it 'validates there are no duplicate records' do
+      importer = MyWrangler.new
+      importer.import(data_file('no_duplicate_records'))
+      importer.errors.should == [
+        MyWrangler::ValidationError.new(:duplicate_records, :row => 3),
+      ]
+    end
+
   end
   
-  describe :correlation do
-    
-    it 'correlates' do
-      pending "Should correlate"
-      # wrangler = MyWrangler.new(:clients => @clients, :filenames => @filenames, :owners => @owners)
-      # wrangler.import(data_file('correlate'))
-      # wrangler.errors.should == []
-      # wrangler.correlation.should == ...
-    end
-    
-  end
-
 end

@@ -4,7 +4,7 @@ module Sage
     
     validate :has_records do
       if @records.empty?
-        invalid(:no_records,
+        invalidate(:no_records,
           :message => "No data records were found")
       end
     end
