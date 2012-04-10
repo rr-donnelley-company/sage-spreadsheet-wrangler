@@ -16,7 +16,7 @@ module Sage
     
     def initialize(fields)
       @record_class = Record.create_class(fields)
-      @correlation = Hash.new([])
+      @correlation = {}
     end
     
     def import(file)
