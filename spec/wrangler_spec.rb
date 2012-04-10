@@ -79,6 +79,21 @@ describe MyWrangler do
       wrangler_crlf.records.should == wrangler_posix.records
     end
     
+    it 'parses CSV file from IO object' do
+      File.open(data_file('simple')) do |io|
+        wrangler = MyWrangler.new
+        wrangler.import(io)
+        wrangler.errors.should == []
+      end
+    end
+    
+    it 'parses CSV file from StringIO object' do
+      io = StringIO.new(File.read(data_file('simple')))
+      wrangler = MyWrangler.new
+      wrangler.import(io)
+      wrangler.errors.should == []
+    end
+    
   end
   
   describe :validation do

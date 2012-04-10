@@ -21,7 +21,8 @@ module Sage
     
     def import(file)
       @file = file
-      csv = CSV.read(file,
+      data = @file.respond_to?(:read) ? @file.read : File.read(@file)
+      csv = CSV.parse(data,
         :headers => true,
         :header_converters => proc { |n| @record_class.canonicalize_field_name(n) },
       )
