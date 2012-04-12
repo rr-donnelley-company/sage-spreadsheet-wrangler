@@ -49,9 +49,9 @@ module Sage
                   end
                 when :bool
                   case value.downcase
-                  when 'true', 'yes', '1'
+                  when 'true', 'y', 'yes', '1'
                     true
-                  when 'false', 'no', '0'
+                  when 'false', 'n', 'no', '0'
                     false
                   else
                     # raise "Invalid boolean value: #{value.inspect}"
