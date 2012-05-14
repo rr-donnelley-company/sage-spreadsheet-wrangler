@@ -13,10 +13,12 @@ module Sage
     attr_accessor :records
     attr_accessor :errors
     attr_accessor :correlation
+    attr_accessor :unmapped_headers
     
     def initialize(fields)
       @record_class = Record.create_class(fields)
       @correlation = {}
+      @unmapped_headers = []
     end
     
     def import(file)
@@ -24,7 +26,11 @@ module Sage
       data = @file.respond_to?(:read) ? @file.read : File.read(@file)
       csv = CSV.parse(data,
         :headers => true,
-        :header_converters => proc { |n| @record_class.canonicalize_field_name(n) },
+        :header_converters => proc { |n|
+          field = @record_class.canonicalize_field_name(n)
+          @unmapped_headers << n if field.nil?
+          field
+        },
       )
       @records = []
       csv.each_with_index do |row, i|
@@ -44,7 +50,7 @@ module Sage
     def valid?
       @errors && @errors.empty?
     end
-  
+    
     private
   
     # Validates current data against validation methods

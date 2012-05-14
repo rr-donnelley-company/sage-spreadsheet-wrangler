@@ -35,6 +35,7 @@ describe MyWrangler do
       wrangler = MyWrangler.new
       wrangler.import(data_file('simple'))
       wrangler.errors.should == []
+      wrangler.unmapped_headers.should == ['junk']
       wrangler.records.map { |r| r.to_hash }.should == [
         {
           :client_id => 1,

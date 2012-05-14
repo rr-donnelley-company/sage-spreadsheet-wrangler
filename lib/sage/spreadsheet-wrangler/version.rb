@@ -2,7 +2,7 @@ module Sage
   
   class SpreadsheetWrangler
     
-    VERSION = '0.1.2'
+    VERSION = '0.1.3'
     
   end
   
